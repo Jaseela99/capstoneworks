@@ -5,8 +5,8 @@ const InstitutionRouter = (app)=>{
     app.get("/institution",InstitutionControl.getInstitutionByName)
     app.get("/institution/:institutionId",InstitutionControl.getInstitutionById)//
     app.get("/institution/:institutionId/teachers",InstitutionControl.getTeacherByInstitution)
-    app.get("/institution/:institutionId/students",InstitutionControl.getStudentByInstitution)
-    app.get("/institutions",InstitutionControl.getInstitutionByLocation)//
+    app.get("/institution/:institutionId/students",InstitutionControl.getStudentByInstitution)//
+    app.get("/institutions",InstitutionControl.getInstitutionByLocation)
 
 }
 

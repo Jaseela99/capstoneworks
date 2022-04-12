@@ -5,12 +5,12 @@ const TeacherRouter =(app)=>{
     app.post("/institution/:institutionId/teacher",TeacherControl.createTeacher);
     app.put("/institution/:institutionId/teacher/:id",TeacherControl.updateTeacher);
     app.delete("/institution/:institutionId/teacher/:id",TeacherControl.deleteTeacher);
-    app.post("/institution/:institutionId/teacher/:id/comment",TeacherControl.createComment);
-    app.get("/institution/:institutionId/teacher/:id/comment",TeacherControl.getCommentByTeacher);
-    app.put("/institution/:institutionId/teacher/:id/comment/:commentId",TeacherControl.updateComment)
-    app.delete("/institution/:institutionId/teacher/:id/comment/:commentId",TeacherControl.deleteComment)
-    app.post("/institution/:institutionId/teacher/:id/rating",TeacherControl.createRating);
-    app.get("/institution/:institutionId/teacher/:id/rating",TeacherControl.getRating);
+    app.post("/teacher/:id/comment",TeacherControl.createComment);
+    app.get("/teacher/:id/comment",TeacherControl.getCommentByTeacher);
+    app.put("/teacher/:id/comment/:commentId",TeacherControl.updateComment)
+    app.delete("/teacher/:id/comment/:commentId",TeacherControl.deleteComment)
+    app.post("/teacher/:id/rating",TeacherControl.createRating);
+    app.get("/teacher/:id/rating",TeacherControl.getRating);
     
 
 }
