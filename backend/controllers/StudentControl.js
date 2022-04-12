@@ -1,4 +1,5 @@
 const Student = require("../Models/StudentModel");
+const Institution = require("../Models/InstitutionModel");
 
 const StudentControl = {
   getStudentById: async (req, res) => {
@@ -17,7 +18,17 @@ const StudentControl = {
   },
   createStudent: async (req, res) => {
     try {
-      const student = await Student.create(req.body);
+      const {fullName,email} = req.body;
+      const student = new Student({
+        fullName:req.body.fullName,
+        email:req.body.email,
+        password:req.body.password,
+        institution:req.params.institutionId
+      })
+      await Institution.findByIdAndUpdate(req.params.institutionId,{
+        $push:{student:student._id}
+      })
+      await student.save()
       res.status(200).json({
         success: true,
         student
@@ -50,7 +61,7 @@ const StudentControl = {
       const student = await Student.findByIdAndDelete(req.params.id);
       res.status(200).json({
         success: true,
-        student,
+        message:"student deleted"
       });
     } catch (err) {
       res.status(500).json({
@@ -59,20 +70,7 @@ const StudentControl = {
       });
     }
   },
-  getStudentByInstitution: async (req, res) => {
-    try {
-      const student = await Student.find({ institution: req.params.id });
-      res.status(200).json({
-        success: true,
-        student,
-      });
-    } catch (err) {
-      res.status(500).json({
-        success: false,
-        message: err.message,
-      });
-    }
-  },
+  
 };
 
 module.exports = StudentControl

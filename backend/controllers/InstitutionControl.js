@@ -1,4 +1,6 @@
 const Institution = require("../Models/InstitutionModel")
+const Student = require("../Models/StudentModel")
+const Teacher = require("../Models/TeacherModel")
 
 const InstitutionControl ={
     createInstitution: async (req, res) => {
@@ -7,6 +9,20 @@ const InstitutionControl ={
             res.status(200).json({
                 success: true,
                 institution
+            });
+        } catch (err) {
+            res.status(500).json({
+                success: false,
+                message: err.message,
+            });
+        }
+    },
+    getInstitutionById: async (req, res) => {
+        try {
+            const institution = await Institution.findById(req.params.institutionId);
+            res.status(200).json({
+                success: true,
+                institution,
             });
         } catch (err) {
             res.status(500).json({
@@ -44,6 +60,34 @@ const InstitutionControl ={
             })
         }
     },
+    getStudentByInstitution: async (req, res) => {
+        try {
+          const student = await Student.find({ institution: req.params.institutionId});
+          res.status(200).json({
+            success: true,
+            student,
+          });
+        } catch (err) {
+          res.status(500).json({
+            success: false,
+            message: err.message,
+          });
+        }
+      },getTeacherByInstitution: async (req, res) => {
+        try {
+          const teacher = await Teacher.find({ institution: req.params.institutionId });
+    
+          res.status(200).json({
+            success: true,
+            teacher,
+          });
+        } catch (err) {
+          res.status(500).json({
+            success: false,
+            meassage: err.message,
+          });
+        }
+      },
     
 
 }
