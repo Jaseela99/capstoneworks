@@ -26,11 +26,19 @@ const teacherSchema = new mongoose.Schema({
     type:Number,
     default:0
   },
-  rating:
-    {
+  rating:{
       type:Number,
-    }
-  ,
+      default:0
+  },
+  ratingCount:{
+    type:Number,
+    default:0
+  },
+  institution:{
+    type:ObjectId,
+    ref:"Institution"
+  }
+  
 });
 
 const TeacherModel = mongoose.model("Teacher", teacherSchema);
