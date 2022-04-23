@@ -5,7 +5,7 @@ import userService from "../../services/user.service";
 import { useNavigate, useParams } from "react-router-dom";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
-import EditComment from "./EditComment";
+import EditComment from "./Editcomment";
 
 const TeacherInfo = () => {
   const navigate = useNavigate();
