@@ -1,22 +1,21 @@
-
+//importing express;
 const express = require("express")
+const cors = require("cors")
 const mongoose = require("mongoose")
 const app = express()
+
+//to restrict access to single origin
+var corsOptions = {
+    origin: "http://localhost:8081"
+  };
+  app.use(cors(corsOptions))
+
 app.use(express.json())
-mongoose.connect(
-  "mongodb+srv://CAPSTONE:CAPSTONE@cluster0.obwb1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  () => {
-    console.log("DATABASE CONNECTED");
-  }
-);
+mongoose.connect("mongodb+srv://capstone:capstone@cluster0.ae2o2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+//setting port and listening
+const PORT = process.env || 3000
+app.listen(PORT,()=>{
+    console.log(`Server is running on port ${PORT}`)
+})
 
-require("./Routers/TeacherRouter")(app)
-require("./Routers/InstitutionRouter")(app)
-require("./Routers/StudentRouter")(app)
 
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
-app.listen(3000, () => {
-  console.log("server listening on PORT 3000");
-});
