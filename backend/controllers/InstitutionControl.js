@@ -1,7 +1,7 @@
 const Institution = require("../Models/InstitutionModel")
 const Student = require("../Models/StudentModel")
 const Teacher = require("../Models/TeacherModel")
-
+//in object of instructioncontrol {keys : values are fuctions}
 const InstitutionControl ={
     //when signing up
     createInstitution: async (req, res) => {
@@ -26,7 +26,7 @@ const InstitutionControl ={
     getInstitutionById: async (req, res) => {
         try {
             //findById is a function to find documents by id in mongoose
-            const institution = await Institution.findById(req.params.institutionId);
+            const institution = await Institution.findById(req.params.institutionId); //find by id returns the object
             //it returns a promise
             res.status(200).json({
                 success: true,
@@ -43,7 +43,7 @@ const InstitutionControl ={
     getInstitutionByName : async(req,res)=>{
         try{
             //find is a function to find all documents matches with selector
-            const institution = await Institution.find({name:req.query.name})
+            const institution = await Institution.find({name:req.query.name}) //if find it returns an array with objects
             res.status(200).json({
                 success:true,
                 institution

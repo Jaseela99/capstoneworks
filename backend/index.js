@@ -1,5 +1,6 @@
 //importing express to build REST apis(get,post,put,delete)
 const express = require("express")
+//cors is used to block different origins
 const cors = require("cors")
 const mongoose = require("mongoose")
 const app = express()
