@@ -1,7 +1,7 @@
 const Institution = require("../Models/InstitutionModel")
 const Student = require("../Models/StudentModel")
 const Teacher = require("../Models/TeacherModel")
-//in object of instructioncontrol {keys : values are fuctions}
+//in object of instructioncontrol {keys : values are functions}
 const InstitutionControl ={
     //when signing up
     createInstitution: async (req, res) => {

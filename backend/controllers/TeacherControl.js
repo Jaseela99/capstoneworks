@@ -68,7 +68,7 @@ const TeacherControl = {
     try {
       const teacher = await Teacher.findByIdAndDelete(req.params.id);
       await Institution.findByIdAndUpdate(req.params.institutionId, {
-        $pull: { teacher: teacher._id },
+        $pull: { teacher: req.params.id },
       });
       res.status(200).json({
         success: true,
@@ -129,12 +129,13 @@ const TeacherControl = {
 
   updateComment: async (req, res) => {
     try {
+      //const {text:text}={text:req.body.text}
       const { text } = req.body;
       const fieldsToUpdate = {};
       fieldsToUpdate.text = text;
       const comment = await Comment.findByIdAndUpdate(
         req.params.commentId,
-        {
+        {//adds text to filedToUpdate
           $set: { ...fieldsToUpdate },
         },
         { new: true }
@@ -157,7 +158,7 @@ const TeacherControl = {
       const comment = await Comment.findById(req.params.commentId);
       await comment.remove();
       //finding index of comment id
-      const index = teacher.comment.indexOf(comment._id);
+      const index = teacher.comment.indexOf(commentId);
       //removing comment id from teacher comment array
       teacher.comment.splice(index, 1);
       //decreasing comment count

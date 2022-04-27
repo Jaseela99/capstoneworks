@@ -63,6 +63,9 @@ const StudentControl = {
   deleteStudent: async (req, res) => {
     try {
       const student = await Student.findByIdAndDelete(req.params.id);
+      await Institution.findByIdAndUpdate(req.params.institutionId, {
+        $pull: { student: req.params.id },
+      });
       res.status(200).json({
         success: true,
         message:"student deleted"
