@@ -3,13 +3,18 @@ const Student = require("../Models/StudentModel")
 const Teacher = require("../Models/TeacherModel")
 
 const InstitutionControl ={
+    //when signing up
     createInstitution: async (req, res) => {
+        //try tests block of code for errors
         try {
+            //post req , body:name and location
+            //create is a function to create documents in mongoose
             const institution = await Institution.create(req.body);
             res.status(200).json({
                 success: true,
                 institution
             });
+            //catch handle errors if there are any
         } catch (err) {
             res.status(500).json({
                 success: false,
@@ -17,9 +22,12 @@ const InstitutionControl ={
             });
         }
     },
+    //admin dashboard
     getInstitutionById: async (req, res) => {
         try {
+            //findById is a function to find documents by id in mongoose
             const institution = await Institution.findById(req.params.institutionId);
+            //it returns a promise
             res.status(200).json({
                 success: true,
                 institution,
@@ -31,9 +39,10 @@ const InstitutionControl ={
             });
         }
     },
-
+    //search in user dashboard by name and location
     getInstitutionByName : async(req,res)=>{
         try{
+            //find is a function to find all documents matches with selector
             const institution = await Institution.find({name:req.query.name})
             res.status(200).json({
                 success:true,
@@ -60,6 +69,7 @@ const InstitutionControl ={
             })
         }
     },
+    //student list in admin dashboard
     getStudentByInstitution: async (req, res) => {
         try {
           const student = await Student.find({ institution: req.params.institutionId});
@@ -73,7 +83,9 @@ const InstitutionControl ={
             message: err.message,
           });
         }
-      },getTeacherByInstitution: async (req, res) => {
+      },
+      //teachers list in admin dashboard
+      getTeacherByInstitution: async (req, res) => {
         try {
           const teacher = await Teacher.find({ institution: req.params.institutionId });
     
@@ -88,7 +100,23 @@ const InstitutionControl ={
           });
         }
       },
-    
+      //institution list in userboard
+      getAllInstitutions: async (req, res) => {
+          try{
+              const institutions = await Institution.find({});
+                res.status(200).json({
+                    success:true,
+                    institutions
+          })
+        }catch (err){
+            res.status(500).json({
+                success:false,
+                message:err.message
+            })
+
+        }
+
+      },
 
 }
 module.exports = InstitutionControl
