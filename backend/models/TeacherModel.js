@@ -5,7 +5,7 @@ const teacherSchema = new mongoose.Schema({
   fullName: {
     type: String,
   },
-  profileImage: {
+  profilePic: {
     type: String,
   },
   email: {
@@ -17,6 +17,13 @@ const teacherSchema = new mongoose.Schema({
   subject: {
     type: String,
     
+  },
+  experience:{
+    type:String,
+
+  },
+  bio:{
+    type:String,
   },
   comment:[{
     type:ObjectId,

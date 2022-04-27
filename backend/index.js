@@ -1,19 +1,23 @@
-//importing express;
+//importing express to build REST apis(get,post,put,delete)
 const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
 const app = express()
-
 //to restrict access to single origin
 var corsOptions = {
-    origin: "http://localhost:8081"
+  origin: "http://localhost:8081"
   };
-  app.use(cors(corsOptions))
 
-app.use(express.json())
 mongoose.connect("mongodb+srv://capstone:capstone@cluster0.ae2o2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+app.use(cors(corsOptions))
+//data is stored in json format
+app.use(express.json())
+
+app.get("/", (req, res) => {
+  res.send("Hello World")
+})
 //setting port and listening
-const PORT = process.env || 3000
+const PORT = process.env.PORT || 3000
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`)
 })

@@ -9,9 +9,6 @@ const studentSchema = new mongoose.Schema({
   email: {
     type: String,
   },
-  password: {
-    type: String,
-  },
   institution: {
     type: ObjectId,
     ref: "Institution",
