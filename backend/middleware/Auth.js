@@ -1,8 +1,8 @@
 //for authentication
 
 const jwt = require('jsonwebtoken');
-const User = require('../Models/UserModel');
-const Role = require('../Models/RoleModel');
+const User = require('../models/UserModel');
+const Role = require('../models/RoleModel');
 
 const verifyToken = (req, res, next) => {
     //token is what we give on the header

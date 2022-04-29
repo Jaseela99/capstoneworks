@@ -1,6 +1,6 @@
-const Institution = require("../Models/InstitutionModel")
-const Student = require("../Models/StudentModel")
-const Teacher = require("../Models/TeacherModel")
+const Institution = require("../models/InstitutionModel")
+const Student = require("../models/StudentModel")
+const Teacher = require("../models/TeacherModel")
 //in object of instructioncontrol {keys : values are functions}
 const InstitutionControl ={
     //when signing up

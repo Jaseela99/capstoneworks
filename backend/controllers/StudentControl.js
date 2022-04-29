@@ -1,83 +1,92 @@
-const Student = require("../Models/StudentModel");
-const Institution = require("../Models/InstitutionModel");
-const User = require("../Models/UserModel");
-const StudentControl = {
-  getStudentById: async (req, res) => {
-    try {
-      const student = await Student.findById(req.params.id);
-      res.status(200).json({
-        success: true,
-        student,
-      });
-    } catch (err) {
-      res.status(500).json({
-        success: false,
-        message: err.message,
-      });
-    }
-  },
+const Institution = require("../models/institutionModel")
+const User = require("../models/user.model")
+const Student = require("../models/studentModel")
+//object whose key is name and value is async function
+const studentControl = {
   createStudent: async (req, res) => {
+    //try tests block of code for errors
     try {
-      const {userName,email} = req.body;
+      //username and email are the body and creates a new student
+      const { userName, email } = req.body
       const student = new Student({
-        userName:userName,
-        email:email,
-        institution:req.params.institutionId
+        userName: userName,
+        email: email,
+        //params
+        institution: req.params.institutionId,
       })
-      //push id of new student in institution collection
-      await Institution.findByIdAndUpdate(req.params.institutionId,{
-        $push:{student:student._id}
+      //Institution collection ,studentid is pushed to the student field
+      await Institution.findByIdAndUpdate(req.params.institutionId, {
+        $push: { student: student._id },
       })
       await student.save()
-      //find email of student in user collcetion and update isStudent to true
-      await User.findByIdAndUpdate({email:req.body.email},{isStudent:true})
-      res.status(200).json({
-        success: true,
-        student
-      });
-    } catch (err) {
-      res.status(500).json({
-        success: false,
-        message: err.message,
-      });
-    }
-  },
-  //update body with id
-  updateStudent: async (req, res) => {
-    try {
-      const student = await Student.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-      });
+      //in user collection we check if there is email id of student and upadate is student as true
+      await User.findOneAndUpdate(
+        { email: req.body.email },
+        { isStudent: true, institution: req.params.institutionId }
+      )
       res.status(200).json({
         success: true,
         student,
-      });
+      })
+      //catch handle errors if there are any
     } catch (err) {
       res.status(500).json({
         success: false,
         message: err.message,
-      });
+      })
     }
   },
-  //delete student with id
-  deleteStudent: async (req, res) => {
+  getStudentById: async (req, res) => {
     try {
-      const student = await Student.findByIdAndDelete(req.params.id);
-      await Institution.findByIdAndUpdate(req.params.institutionId, {
-        $pull: { student: req.params.id },
-      });
+      //it returns an object with student details of the coreesponding student id
+      const student = await Student.findById(req.params.id)
       res.status(200).json({
         success: true,
-        message:"student deleted"
-      });
+        student,
+      })
     } catch (err) {
       res.status(500).json({
         success: false,
         message: err.message,
-      });
+      })
     }
   },
-  
-};
+  updateStudent: async (req, res) => {
+    try {
+      //find the student by id and update the student details
+      const student = await Student.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      })
+      res.status(200).json({
+        success: true,
+        student,
+      })
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        message: err.message,
+      })
+    }
+  },
+  deleteStudent: async (req, res) => {
+    try {
+      //find the student by id and delete the student
+      const student = await Student.findByIdAndDelete(req.params.id)
+     //removing student id from student field of institution collection
+      await Institution.findByIdAndUpdate(req.params.institutionId, {
+        $pull: { student: req.params.id },
+      })
 
-module.exports = StudentControl
+      res.status(200).json({
+        success: true,
+        message: "student deleted",
+      })
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        message: err.message,
+      })
+    }
+  },
+}
+module.exports = studentControl

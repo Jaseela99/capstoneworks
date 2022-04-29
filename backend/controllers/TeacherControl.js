@@ -1,6 +1,6 @@
-const Teacher = require("../Models/TeacherModel");
-const Comment = require("../Models/CommentModel");
-const Institution = require("../Models/InstitutionModel");
+const Teacher = require("../models/TeacherModel");
+const Comment = require("../models/CommentModel");
+const Institution = require("../models/InstitutionModel");
 
 const TeacherControl = {
   getTeacherById: async (req, res) => {

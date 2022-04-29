@@ -4,6 +4,7 @@ const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
 const app = express()
+require("dotenv").config()
 //to restrict access to single origin
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -14,10 +15,10 @@ app.use(cors(corsOptions))
 //data is stored in json format
 app.use(express.json())
 
-require("./routes/UserRouter")(app)
-require("./routes/InstitutionRouter")(app)
-require("./routes/StudentRouter")(app)
-require("./routes/TeacherRouter")(app)
+require("./routers/UserRouter")(app)
+require("./routers/InstitutionRouter")(app)
+require("./routers/StudentRouter")(app)
+require("./routers/TeacherRouter")(app)
 app.get("/", (req, res) => {
   res.send("Hello World")
 })
