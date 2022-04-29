@@ -6,6 +6,7 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 function App() {
   return (
     <div>
+      {/* browser router uses regular url paths */}
       <BrowserRouter>
         <Routes>
           <Route path="/admin" element={<AdminDashboard />} />
