@@ -1,19 +1,22 @@
 import "./App.css";
-import AdminDashboard from "./components/Admin/AdminDashboard";
-import Rating from "./components/user/Rating";
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import Products from "./components/Products";
+// import { Route, BrowserRouter, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      {/* browser router uses regular url paths */}
-      <BrowserRouter>
+    <div className="w-full max-w-full flex flex-col items-center justify-center pt-6 pb-10 pl-10 pr-10">
+      <h2 className="text-2xl font-semibold">React Tables</h2>
+<Products/>
+
+{
+
+
+/*       <BrowserRouter>
         <Routes>
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/rating" element={<Rating />} />
+       
 
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }
