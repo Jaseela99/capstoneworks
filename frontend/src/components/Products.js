@@ -1,6 +1,7 @@
 import React,{useMemo} from 'react'
 import axios from "axios"
-import {useTable,useSortBy} from "react-table"
+import {useTable,useSortBy, useGlobalFilter} from "react-table"
+import SearchFilter from './SearchFilter'
 const Products = () => {
     const [products,setProducts]=React.useState([])
     const fetchProducts = async () => {
@@ -120,18 +121,26 @@ const Products = () => {
       //useTablehook returns an instance object which contains everything to build a table and interact with its state
       const tableInstance=useTable({
         columns:productColumns,data:productData},
+        useGlobalFilter,
         tableHooks,
         useSortBy
         )//data and columns are given for creating table instance
       //to apply the table instance we need to destructure it and give it to table elements
-      const {getTableProps,getTableBodyProps,headerGroups,rows,prepareRow}=tableInstance
+      const {getTableProps,getTableBodyProps,headerGroups,rows,prepareRow,  preGlobalFilteredRows,
+        setGlobalFilter,
+        state}=tableInstance
       const isEven=(index)=>index%2===0
       React.useEffect( ()=>{
         fetchProducts()
       },[])
       return (
-    //apply the table props
+        <>
+        <SearchFilter preGlobalFilteredRows={preGlobalFilteredRows}
+        setGlobalFilter={setGlobalFilter}
+        globalFilter={state.globalFilter}/>
+    {/* apply the table props */}
     <table {...getTableProps()} className="table-fixed
+        
     text-base
     text-gray-800">
         <thead className='p-2'>
@@ -185,6 +194,7 @@ const Products = () => {
 
         </tbody>
     </table>
+    </>
   )
 }
 
